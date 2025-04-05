@@ -8,6 +8,7 @@ Output:
 
 '''
 
+# shift character, also check if out of range: 'a' to 'z', in that case shift around
 def shift_character(character, shift):
     ascii_value_after_shift = ord(character) + shift
     if ascii_value_after_shift > ord('z'):
@@ -18,29 +19,19 @@ def shift_character(character, shift):
         return chr(ascii_value_after_shift)
 
 
-def encode(word, shift):
-    encoded_word = ''
+def process(word, shift):
+    new_word = ''
     for character in word:
         if ord(character) == ord(' '):
-            encoded_word += character
+            new_word += character
             continue
+        # not a letter
         if ord(character) > ord('z') or ord(character) < ord('a'):
             continue
         shifted_character = shift_character(character, shift)
-        encoded_word += shifted_character
-    return encoded_word
+        new_word += shifted_character
+    return new_word
 
-def decode(word, shift):
-    decoded_word = ''
-    for character in word:
-        if ord(character) == ord(' '):
-            decoded_word += character
-            continue
-        if ord(character) > ord('z') or ord(character) < ord('a'):
-            continue
-        shifted_character = shift_character(character, shift)
-        decoded_word += shifted_character
-    return decoded_word
 
 # main
 while True:
@@ -49,9 +40,9 @@ while True:
     command = input('\'encode\' or \'decode\': ')
     
     if command == 'encode':
-        print(encode(word, shift))
+        print(process(word, shift))
     elif command == 'decode':
-        print(decode(word, -shift))
+        print(process(word, -shift))
     else:
         print('Error: invalid input.')
 
