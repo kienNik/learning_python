@@ -22,11 +22,9 @@ def shift_character(character, shift):
 def process(word, shift):
     new_word = ''
     for character in word:
-        if ord(character) == ord(' '):
-            new_word += character
-            continue
         # not a letter
         if ord(character) > ord('z') or ord(character) < ord('a'):
+            new_word += character
             continue
         shifted_character = shift_character(character, shift)
         new_word += shifted_character
