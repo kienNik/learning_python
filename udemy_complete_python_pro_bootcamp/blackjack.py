@@ -28,7 +28,7 @@ def print_cards(cards: list):
         print(f'- {card}')
 
 def compare_sums(player_cards, dealer_cards):
-    if sum(player_cards) > sum(dealer_cards):
+    if sum(player_cards) > sum(dealer_cards) or sum(dealer_cards) > 21:
         print('Win.')
     elif sum(player_cards) == sum(dealer_cards):
         print('Draw.')
@@ -43,6 +43,11 @@ def print_info(player_cards, dealer_cards):
     print('Dealer\'s cards:')
     print_cards(dealer_cards)
     print(f'Dealer\'s sum: {sum(dealer_cards)}\n')
+
+def change_ace_value(cards: list):
+    if 11 in cards and sum(cards) > 21:
+        cards.remove(11)
+        cards.append(1)
 
 def blackjack():
     player_cards = []
@@ -66,13 +71,16 @@ def blackjack():
         deal = input('Keep dealing? y or n: ')
         if deal == 'n':
             dealer_cards.append(choice(cards))
+            change_ace_value(dealer_cards)
             while sum(dealer_cards) < 17:
                 dealer_cards.append(choice(cards))
+                change_ace_value(dealer_cards)
             print_info(player_cards, dealer_cards)
             compare_sums(player_cards, dealer_cards)
             keep_dealing = False
         elif deal == 'y':
             player_cards.append(choice(cards))
+            change_ace_value(player_cards)
         else:
             print('Invalid input.')
             return
