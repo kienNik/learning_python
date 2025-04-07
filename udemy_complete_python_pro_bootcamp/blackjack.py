@@ -18,8 +18,10 @@ TODO:
 - raplace 10 or 11 with J, Q, K, A
 '''
 
-from random import randint
+from random import choice
 
+# J, Q, K has value 10
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def print_cards(cards: list):
     for card in cards:
@@ -47,9 +49,9 @@ def blackjack():
     dealer_cards = []
 
     # seed
-    player_cards.append(randint(2, 11))
-    player_cards.append(randint(2, 11))
-    dealer_cards.append(randint(2, 11))
+    player_cards.append(choice(cards))
+    player_cards.append(choice(cards))
+    dealer_cards.append(choice(cards))
 
     keep_dealing = True
     while keep_dealing:
@@ -63,14 +65,14 @@ def blackjack():
 
         deal = input('Keep dealing? y or n: ')
         if deal == 'n':
-            dealer_cards.append(randint(2, 11))
+            dealer_cards.append(choice(cards))
             while sum(dealer_cards) < 17:
-                dealer_cards.append(randint(2, 11))
+                dealer_cards.append(choice(cards))
             print_info(player_cards, dealer_cards)
             compare_sums(player_cards, dealer_cards)
             keep_dealing = False
         elif deal == 'y':
-            player_cards.append(randint(2, 11))
+            player_cards.append(choice(cards))
         else:
             print('Invalid input.')
             return
