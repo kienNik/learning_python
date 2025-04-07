@@ -25,7 +25,7 @@ cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def print_cards(cards: list):
     for card in cards:
-        print(f'- {card}')
+        print(f'{card} ', end=' ')
 
 def compare_sums(player_cards, dealer_cards):
     if sum(player_cards) > sum(dealer_cards) or sum(dealer_cards) > 21:
@@ -38,11 +38,11 @@ def compare_sums(player_cards, dealer_cards):
 def print_info(player_cards, dealer_cards):
     print('Player\'s cards:')
     print_cards(player_cards)
-    print(f'Player\'s sum: {sum(player_cards)}\n')
+    print(f'\nPlayer\'s sum: {sum(player_cards)}\n')
 
     print('Dealer\'s cards:')
     print_cards(dealer_cards)
-    print(f'Dealer\'s sum: {sum(dealer_cards)}\n')
+    print(f'\nDealer\'s sum: {sum(dealer_cards)}\n')
 
 def change_ace_value(cards: list):
     if 11 in cards and sum(cards) > 21:
