@@ -8,6 +8,7 @@ class Snake:
     def __init__(self):
         self.body: list[Turtle] = []
         self.food = Food(screen.window_height())
+        self.game_over_txt = Turtle(visible=False)
 
         # init snake's body, if the head is square then a gap will appeared so use circle
         new_turtle = Turtle(shape='circle')
@@ -45,6 +46,7 @@ class Snake:
             self.move()
             if self.is_collide_wall():
                 self.game_over = True
+                self.game_over_txt.write("GAME OVER", align='center', font=("Arial", 18, "bold"))
             if self.is_collide_food():
                 new_turtle = Turtle(shape='square', visible=False)
                 new_turtle.penup()
