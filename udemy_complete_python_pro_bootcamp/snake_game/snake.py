@@ -4,6 +4,7 @@ from food import Food
 
 screen = Screen()
 
+# TODO: move main logic to main.py, remove dependent on food from snake
 class Snake:
     def __init__(self):
         self.body: list[Turtle] = []
@@ -11,6 +12,7 @@ class Snake:
         self.game_over_txt = Turtle(visible=False)
         self.score_txt = Turtle(visible=False)
         self.score = 0
+        # TODO: save highscore to text
 
         # init score text
         self.score_txt.penup()
@@ -28,9 +30,10 @@ class Snake:
         self.body.append(new_turtle)
 
         self.game_over = False
-        self.loop_delay = 0.1
+        self.loop_delay = 0.1  # TODO: convert to level: easy, medium, hard
 
     def check_input(self):
+        #TODO: fix delay when turn
         screen.onkey(self.up, 'Up')
         screen.onkey(self.down, 'Down')
         screen.onkey(self.right, 'Right')
@@ -57,6 +60,7 @@ class Snake:
             if self.is_collide_food():
                 new_turtle = Turtle(shape='square', visible=False)
                 new_turtle.penup()
+                # TODO: fix delay when collide with food
                 new_turtle.setpos(self.body[-1].pos())
                 self.body.append(new_turtle)
                 new_turtle.showturtle()
