@@ -9,6 +9,13 @@ class Snake:
         self.body: list[Turtle] = []
         self.food = Food(screen.window_height())
         self.game_over_txt = Turtle(visible=False)
+        self.score_txt = Turtle(visible=False)
+        self.score = 0
+
+        # init score text
+        self.score_txt.penup()
+        self.score_txt.sety(screen.window_height()/2 - 30)
+        self.score_txt.write("Score: " + str(self.score), align='center', font=("Arial", 15, "normal"))
 
         # init snake's body, if the head is square then a gap will appeared so use circle
         new_turtle = Turtle(shape='circle')
@@ -62,6 +69,9 @@ class Snake:
             screen.tracer(False)
             self.food.reinit()
             screen.tracer(True)
+            self.score += 1
+            self.score_txt.clear()
+            self.score_txt.write("Score: " + str(self.score), align='center', font=("Arial", 15, "normal"))
             return True
         return False
 
