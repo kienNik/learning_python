@@ -46,9 +46,11 @@ class Snake:
             if self.is_collide_wall():
                 self.game_over = True
             if self.is_collide_food():
-                new_turtle = Turtle(shape='square')
+                new_turtle = Turtle(shape='square', visible=False)
                 new_turtle.penup()
+                new_turtle.setpos(self.body[-1].pos())
                 self.body.append(new_turtle)
+                new_turtle.showturtle()
             time.sleep(self.loop_delay)
 
     def is_collide_food(self):
