@@ -51,7 +51,7 @@ class Snake:
         while not self.game_over:
             self.check_input()
             self.move()
-            if self.is_collide_wall():
+            if self.is_collide_wall() or self.is_collide_tail():
                 self.game_over = True
                 self.game_over_txt.write("GAME OVER", align='center', font=("Arial", 18, "bold"))
             if self.is_collide_food():
@@ -62,6 +62,13 @@ class Snake:
                 new_turtle.showturtle()
             time.sleep(self.loop_delay)
 
+    def is_collide_tail(self):
+        for i in range(len(self.body)-1, 3, -1):
+            if self.body[i].distance(self.body[0].pos()) <= 5:
+                return True
+        return False
+
+    
     def is_collide_food(self):
         diff_x = abs(self.food.pos()[0] - self.body[0].xcor())
         diff_y = abs(self.food.pos()[1] - self.body[0].ycor())
