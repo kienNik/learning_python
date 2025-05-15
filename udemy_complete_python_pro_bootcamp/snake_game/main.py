@@ -1,5 +1,3 @@
-# TODO: add README
-
 from turtle import Turtle, Screen
 import time
 from food import Food
