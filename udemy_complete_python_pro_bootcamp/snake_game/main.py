@@ -1,8 +1,13 @@
 from turtle import Turtle, Screen
 import time
+from enum import Enum
 from food import Food
 from snake import Snake
 
+class Level(float, Enum):
+    EASY = 0.1
+    MEDIUM = 0.05
+    HARD = 0.02
 
 class SnakeGame:
     def __init__(self):
@@ -14,7 +19,7 @@ class SnakeGame:
         self.game_over_txt = Turtle(visible=False)
         self.score_txt = Turtle(visible=False)
         self.score = 0
-        self.loop_delay = 0.1  # TODO: convert to level: easy, medium, hard
+        self.loop_delay = Level.MEDIUM
 
         self.high_score = 0
         self.load_high_score()
