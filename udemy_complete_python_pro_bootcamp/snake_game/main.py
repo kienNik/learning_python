@@ -13,13 +13,24 @@ class SnakeGame:
         self.game_over = False
         self.game_over_txt = Turtle(visible=False)
         self.score_txt = Turtle(visible=False)
-        self.score = 0 # TODO: save highscore to text
+        self.score = 0
         self.loop_delay = 0.1  # TODO: convert to level: easy, medium, hard
+
+        self.high_score = 0
+        self.load_high_score()
 
         # init score text
         self.score_txt.penup()
         self.score_txt.sety(self.screen.window_height()/2 - 30)
-        self.score_txt.write("Score: " + str(self.score), align='center', font=("Arial", 15, "normal"))
+        self.score_txt.write("Score: " + str(self.score) + "/" + str(self.high_score), align='center', font=("Arial", 15, "normal"))
+
+    def load_high_score(self):
+        with open('high_score.txt', 'r') as file:
+            self.high_score = int(file.read())
+    
+    def update_high_score(self):
+        with open('high_score.txt', 'w') as file:
+            file.write(str(self.high_score))
 
     def exitonclick(self):
         self.screen.exitonclick()
@@ -38,8 +49,12 @@ class SnakeGame:
             self.food.reinit()
             self.screen.tracer(True)
             self.score += 1
+            if self.score > self.high_score:
+                self.high_score = self.score
+                self.update_high_score()
+
             self.score_txt.clear()
-            self.score_txt.write("Score: " + str(self.score), align='center', font=("Arial", 15, "normal"))
+            self.score_txt.write("Score: " + str(self.score) + "/" + str(self.high_score), align='center', font=("Arial", 15, "normal"))
             return True
         return False
 
@@ -54,6 +69,7 @@ class SnakeGame:
             if self.snake.is_collide_wall(self.screen.window_height()) or self.snake.is_collide_tail():
                 self.game_over = True
                 self.game_over_txt.write("GAME OVER", align='center', font=("Arial", 18, "bold"))
+                continue
             if self.is_collide_food():
                 self.snake.extend()
             time.sleep(self.loop_delay)
